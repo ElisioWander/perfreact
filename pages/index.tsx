@@ -1,9 +1,15 @@
 import { FormEvent, useState } from "react"
 import { SearchResults } from "../components/SearchResults";
 
+type results = Array<{
+  id: number;
+  price: number;
+  title: string;
+}>
+
 export default function Home() {
   const [search, setSearch] = useState('')
-  const [results, setResults] = useState([]) //um array de produtos
+  const [results, setResults] = useState<results>([]) //um array de produtos
 
   async function handleSearch(event: FormEvent) {
     event.preventDefault()
@@ -24,6 +30,8 @@ export default function Home() {
 
   return (
     <div>
+      <h1>Search</h1>
+
       <form onSubmit={handleSearch} >
         <input 
           type="text"
