@@ -1,14 +1,19 @@
 import { FormEvent, useCallback, useState } from "react"
 import { SearchResults } from "../components/SearchResults";
 
+type Data = {
+  id: number;
+  price: number;
+  priceFormatted: string;
+  title: string;
+}
+
 interface Results {
   totalPrice: number;
-  data: Array<{
-    id: number;
-    price: number;
-    title: string;
-  }>
+  data: Data[]
 }
+
+
 
 export default function Home() {
   const [search, setSearch] = useState('')
@@ -34,13 +39,30 @@ export default function Home() {
     const response = await fetch(`http://localhost:3333/products?q=${search}`)
     const data = await response.json()
 
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    })
+
+    //sempre que possível, para obter uma melhor performace, fromate os dados no momento
+    //em que eles foram buscados e não nos componentes que irão exibilos. Dessa forma evita-se
+    //o uso desnecessário de metodos como o memo, useMemo,useCallback.
+    const products = data.map((product: Data) => {
+      return {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        priceFormatted: formatter.format(product.price)
+      }
+    })
+
     const totalPrice = data.reduce((total: number, product: {price: number}) => {
       return total + product.price
     }, 0)
 
 
     //salvar os resultados da busca em um estado
-    setResults({totalPrice, data})
+    setResults({totalPrice, data: products})
   }
 
   return (
