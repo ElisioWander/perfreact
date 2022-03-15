@@ -2,21 +2,23 @@ import {useMemo} from 'react'
 import { ProductItem } from "./ProductItem";
 
 interface SearchResultsProps {
+  totalPrice: number;
   results: Array<{
     id: number;
     price: number;
     title: string;
   }>;
+  onAddToWishList: (id:number) => void;
 }
 
 //pegando os resultados um por um atraves do MAP e enviando para o component
 //que irá ser responsábel pela renderização do produto
-export function SearchResults({ results }: SearchResultsProps) {
-  const totalPrice = useMemo(() => {
-    return results.reduce((total, product) => {
-      return total + product.price
-    }, 0)
-  }, [results])
+export function SearchResults({ results, onAddToWishList, totalPrice }: SearchResultsProps) {
+  // const totalPrice = useMemo(() => {
+  //   return results.reduce((total, product) => {
+  //     return total + product.price
+  //   }, 0)
+  // }, [results])
 
   return (
     <div>
@@ -24,7 +26,11 @@ export function SearchResults({ results }: SearchResultsProps) {
 
       {results.map(product => {
         return (
-            <ProductItem product={product} key={product.id} />
+           <ProductItem
+              onAddToWishList={onAddToWishList}
+              product={product}
+              key={product.id}
+            />
         )
       })}
     </div>

@@ -1,15 +1,26 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useCallback, useState } from "react"
 import { SearchResults } from "../components/SearchResults";
 
-type results = Array<{
-  id: number;
-  price: number;
-  title: string;
-}>
+interface Results {
+  totalPrice: number;
+  data: Array<{
+    id: number;
+    price: number;
+    title: string;
+  }>
+}
 
 export default function Home() {
   const [search, setSearch] = useState('')
-  const [results, setResults] = useState<results>([]) //um array de produtos
+  const [results, setResults] = useState<Results>({
+    totalPrice: 0,
+    data: []
+  }) //um array de produtos
+
+  const addToWishList = useCallback((id: number) => {
+    console.log(id)
+  }, [])
+
 
   async function handleSearch(event: FormEvent) {
     event.preventDefault()
@@ -23,9 +34,13 @@ export default function Home() {
     const response = await fetch(`http://localhost:3333/products?q=${search}`)
     const data = await response.json()
 
+    const totalPrice = data.reduce((total: number, product: {price: number}) => {
+      return total + product.price
+    }, 0)
+
+
     //salvar os resultados da busca em um estado
-    setResults(data)
-    console.log(results)
+    setResults({totalPrice, data})
   }
 
   return (
@@ -44,7 +59,7 @@ export default function Home() {
         </button>
       </form>
 
-      <SearchResults results={results} />
+      <SearchResults results={results.data} totalPrice={results.totalPrice} onAddToWishList={addToWishList} />
     </div>
   )
 } 
