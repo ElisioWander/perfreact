@@ -1,6 +1,6 @@
-import {useMemo} from 'react'
-import { ProductItem } from "./ProductItem";
+import { ProductItem } from "../ProductItem";
 import { List, ListRowRenderer } from 'react-virtualized'
+import { Container, ListContent } from "./style";
 
 interface SearchResultsProps {
   totalPrice: number;
@@ -38,17 +38,21 @@ export function SearchResults({ results, onAddToWishList, totalPrice }: SearchRe
   }
 
   return (
-    <div>
-      <h1>{totalPrice}</h1>
+    <Container>
+        <h2>Total: </h2>
+        <h3>{totalPrice}</h3>
 
-      <List 
-        height={300}
-        rowHeight={30}
-        width={500}
-        overscanRowCount={5}
-        rowCount={results.length}
-        rowRenderer={rowRenderer}
-      />
-    </div>
+        <ListContent>
+          <List 
+            height={270}
+            rowHeight={30}
+            width={500}
+            overscanRowCount={5}
+            rowCount={results.length}
+            rowRenderer={rowRenderer}
+            
+          />
+        </ListContent>
+    </Container>
   );
 }

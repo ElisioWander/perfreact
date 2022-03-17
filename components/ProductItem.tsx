@@ -1,5 +1,5 @@
 import { memo, useMemo, useState } from "react";
-import { AddProductToWishListProps } from "./AddProductToWishList"
+import { AddProductToWishListProps } from "../components/AddProductToWishList/AddProductToWishList"
 
 import dynamic from "next/dynamic";
 
@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
   //o ponto em que ele é necessário. Isso pode contribuir para a eficiência 
   //no funcionamento de um programa, se utilizado adequadamente)
 const AddProductToWishList = dynamic<AddProductToWishListProps>(() => {
-  return import('./AddProductToWishList')
+  return import('../components/AddProductToWishList/AddProductToWishList')
   .then(mod => mod.AddProductToWishList)
 }, {
   loading: () => <span>carregando...</span> 

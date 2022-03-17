@@ -1,5 +1,6 @@
 import { FormEvent, useCallback, useState } from "react"
-import { SearchResults } from "../components/SearchResults";
+import { SearchResults } from "../components/SearchResults/SearchResults";
+import { Container, SearchButton } from "./style";
 
 type Data = {
   id: number;
@@ -66,7 +67,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <Container>
       <h1>Search</h1>
 
       <form onSubmit={handleSearch} >
@@ -76,12 +77,12 @@ export default function Home() {
           onChange={e => setSearch(e.target.value)}
         />
         
-        <button type="submit">
+        <SearchButton type="submit">
           Search  
-        </button>
+        </SearchButton>
       </form>
 
       <SearchResults results={results.data} totalPrice={results.totalPrice} onAddToWishList={addToWishList} />
-    </div>
+    </Container>
   )
 } 
