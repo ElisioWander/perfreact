@@ -10,7 +10,7 @@ type Data = {
 }
 
 interface Results {
-  totalPrice: number;
+  totalPriceFormatted: string;
   data: Data[]
 }
 
@@ -19,7 +19,7 @@ interface Results {
 export default function Home() {
   const [search, setSearch] = useState('')
   const [results, setResults] = useState<Results>({
-    totalPrice: 0,
+    totalPriceFormatted: "0",
     data: []
   }) //um array de produtos
 
@@ -53,17 +53,19 @@ export default function Home() {
         id: product.id,
         title: product.title,
         price: product.price,
-        priceFormatted: formatter.format(product.price)
+        priceFormatted: formatter.format(product.price),
       }
     })
 
-    const totalPrice = data.reduce((total: number, product: {price: number}) => {
+    const totalPrice = products.reduce((total: number, product: {price: number}) => {
       return total + product.price
     }, 0)
 
+    const totalPriceFormatted = formatter.format(totalPrice)
+
 
     //salvar os resultados da busca em um estado
-    setResults({totalPrice, data: products})
+    setResults({totalPriceFormatted, data: products})
   }
 
   return (
@@ -82,7 +84,7 @@ export default function Home() {
         </SearchButton>
       </form>
 
-      <SearchResults results={results.data} totalPrice={results.totalPrice} onAddToWishList={addToWishList} />
+      <SearchResults results={results.data} totalPrice={results.totalPriceFormatted} onAddToWishList={addToWishList} />
     </Container>
   )
 } 

@@ -11,6 +11,4 @@ export const ListContent = styled.div`
 
     font-size: 1rem;
     text-transform: uppercase;
-
-    color: var(--white);
 `

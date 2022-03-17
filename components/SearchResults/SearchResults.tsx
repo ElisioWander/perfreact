@@ -1,9 +1,10 @@
-import { ProductItem } from "../ProductItem";
+
 import { List, ListRowRenderer } from 'react-virtualized'
+import { ProductItem } from '../ProductItem/ProductItem';
 import { Container, ListContent } from "./style";
 
 interface SearchResultsProps {
-  totalPrice: number;
+  totalPrice: string;
   results: Array<{
     id: number;
     price: number;
@@ -37,6 +38,13 @@ export function SearchResults({ results, onAddToWishList, totalPrice }: SearchRe
     )
   }
 
+  // const formattedTotalPrice = {
+  //   totalPrice: new Intl.NumberFormat('pt-BR', {
+  //     style: 'currency',
+  //     currency: 'BRL'
+  //   })
+  // }
+
   return (
     <Container>
         <h2>Total: </h2>
@@ -46,7 +54,7 @@ export function SearchResults({ results, onAddToWishList, totalPrice }: SearchRe
           <List 
             height={270}
             rowHeight={30}
-            width={500}
+            width={600}
             overscanRowCount={5}
             rowCount={results.length}
             rowRenderer={rowRenderer}

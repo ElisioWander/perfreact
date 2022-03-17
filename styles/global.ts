@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
         --background: #333333;
         --white: #FFFFFA;
         --pink: #FF3864;
+        --yellow: #F3A712;
     }
 
     * {
@@ -31,6 +32,7 @@ export const GlobalStyle = createGlobalStyle`
         justify-content: center;
 
         color: var(--white);
+        background-color: var(--white);
     }
 
     body, input, button {

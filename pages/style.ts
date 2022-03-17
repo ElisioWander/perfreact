@@ -26,9 +26,10 @@ export const Container = styled.div`
         border: none;
         border-radius: 0.5rem;
 
-        filter: brightness(0.3);
-
         margin: 0 0.5rem 0.5rem 0;
+
+        color: white;
+        background-color: #444;
     }
 `
 
@@ -44,7 +45,7 @@ export const SearchButton = styled.button`
     border-radius: 0.4rem;
 
     color: var(--white);
-    background-color: var(--pink);
+    background-color: var(--yellow);
 
     transition: 200ms;
 

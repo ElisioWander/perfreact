@@ -1,7 +1,9 @@
 import { memo, useMemo, useState } from "react";
-import { AddProductToWishListProps } from "../components/AddProductToWishList/AddProductToWishList"
+
 
 import dynamic from "next/dynamic";
+import { AddProductToWishListProps } from "../AddProductToWishList/AddProductToWishList";
+import { Container } from "./style";
 
 //o dynamic funciona como algo chamado lazy loading(
   //Lazy loading é um padrão de projeto de software, comumente utilizado
@@ -9,7 +11,7 @@ import dynamic from "next/dynamic";
   //o ponto em que ele é necessário. Isso pode contribuir para a eficiência 
   //no funcionamento de um programa, se utilizado adequadamente)
 const AddProductToWishList = dynamic<AddProductToWishListProps>(() => {
-  return import('../components/AddProductToWishList/AddProductToWishList')
+  return import('../AddProductToWishList/AddProductToWishList')
   .then(mod => mod.AddProductToWishList)
 }, {
   loading: () => <span>carregando...</span> 
@@ -36,8 +38,8 @@ export function ProductItemComponent({
   const [isAddingToWishList, setIsAddingToWishList] = useState(false);
 
   return (
-    <div>
-      {product.title} - <strong>{product.priceFormatted}</strong>
+    <Container>
+      {product.title} <strong>{product.priceFormatted}</strong>
       <button onClick={() => setIsAddingToWishList(true)}>
         Add to wishlist
       </button>
@@ -47,7 +49,7 @@ export function ProductItemComponent({
           onRequestClose={() => setIsAddingToWishList(false)}
         />
       )}
-    </div>
+    </Container>
   );
 }
 
